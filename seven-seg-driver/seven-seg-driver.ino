@@ -21,6 +21,9 @@
 
 void setup()
 {
+	DDRD  = 0xFF;
+	DDRB |= 0x0F;
+
 	Wire.begin('d');  // 0x64
 }
 
