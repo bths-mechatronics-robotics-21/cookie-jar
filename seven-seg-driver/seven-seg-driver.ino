@@ -16,6 +16,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * Wiring:
+ * =======
+ *
+ * PD0 - segment a
+ * PD1 - segment b
+ * PD2 - segment c
+ * PD3 - segment d
+ * PD4 - segment e
+ * PD5 - segment f
+ * PD6 - segment g
+ * PD7 - decimal point
+ *
+ * PB0 - digit 1
+ * PB1 - digit 2
+ * PB2 - digit 3
+ * PB3 - digit 4
+ */
+
 #include <Wire.h>
 
 
