@@ -16,9 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <Wire.h>
+
 
 void setup()
 {
+	Wire.begin('d');  // 0x64
 }
 
 void loop()
