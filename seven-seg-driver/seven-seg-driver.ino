@@ -75,11 +75,15 @@ const uint8_t SEG_LOOKUP[] = {
 	0b01101110   // y
 };
 
+volatile uint8_t ssd_buff[4];
+
 
 void setup()
 {
 	DDRD  = 0xFF;
 	DDRB |= 0x0F;
+
+	memset(ssd_buff, 0, sizeof(ssd_buff));
 
 	Wire.begin('d');  // 0x64
 }
