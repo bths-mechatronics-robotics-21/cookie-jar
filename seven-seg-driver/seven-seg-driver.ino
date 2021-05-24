@@ -35,6 +35,15 @@
  * PB3 - digit 4
  */
 
+
+#define REFRESH_RATE 60.0
+
+#define SECOND_US    1000000
+#define SEG_CNT      8
+#define DIG_CNT      4
+#define SEG_DELAY    ((int) (SECOND_US / (SEG_CNT * DIG_CNT) / REFRESH_RATE))
+
+
 #include <Wire.h>
 
 
