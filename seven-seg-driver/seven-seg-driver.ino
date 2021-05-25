@@ -99,4 +99,16 @@ void setup()
 
 void loop()
 {
+	static uint8_t cnt = 0;
+
+	// enable the appropriate segment
+	PORTD  = ssd_buff[cnt % 4] & _BV(cnt % 8);
+
+	// enable the appropriate digit
+	PORTB |= 0x0F;
+	PORTB &= ~_BV(cnt % 4);
+
+	delayMicroseconds(SEG_DELAY);
+
+	++cnt;
 }
