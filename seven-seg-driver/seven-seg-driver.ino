@@ -36,7 +36,7 @@
  */
 
 
-#define REFRESH_RATE 60.0
+#define REFRESH_RATE 1000.0
 
 #define SECOND_US    1000000
 #define SEG_CNT      8
