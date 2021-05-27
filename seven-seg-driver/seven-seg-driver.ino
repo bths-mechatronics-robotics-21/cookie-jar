@@ -42,6 +42,7 @@
 #define SEG_CNT      8
 #define DIG_CNT      4
 #define SEG_DELAY    ((int) (SECOND_US / (SEG_CNT * DIG_CNT) / REFRESH_RATE))
+#define DIG_DELAY    ((uint32_t) (SECOND_US / DIG_CNT) / REFRESH_RATE)
 
 
 #include <Wire.h>
@@ -99,18 +100,23 @@ void setup()
 
 void loop()
 {
-	static uint8_t seg = 0;
-	static uint8_t dig = 0;
+	static uint8_t  dig      = 0;
+	static uint32_t cur_time = 0;
+	static uint32_t pre_time = 0;
 
-	// enable the appropriate segment
-	PORTD  = ssd_buff[dig] & _BV(seg);
+	cur_time = micros();
 
-	// enable the appropriate digit
-	PORTB |= 0x0F;
-	PORTB &= ~_BV(dig);
+	if (cur_time - pre_time >= DIG_DELAY) {
+		// enable the appropriate segment
+		PORTD  = ssd_buff[dig];
 
-	delayMicroseconds(SEG_DELAY);
+		// enable the appropriate digit
+		PORTB |= 0x0F;
+		PORTB &= ~_BV(dig);
 
-	seg = ++seg % SEG_CNT;
-	if (!seg) dig = ++dig % DIG_CNT;
+		++dig;
+		dig %= DIG_CNT;
+
+		pre_time = cur_time;
+	}
 }
