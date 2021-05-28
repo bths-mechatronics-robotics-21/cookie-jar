@@ -93,6 +93,9 @@ void setup()
 	DDRD  = 0xFF;
 	DDRB |= 0x0F;
 
+	PORTD  = 0x00;
+	PORTB &= 0xF0;
+
 	memset(ssd_buff, 0, sizeof(ssd_buff));
 
 	Wire.begin('d');  // 0x64
