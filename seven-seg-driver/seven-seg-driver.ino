@@ -39,9 +39,7 @@
 #define REFRESH_RATE 1000.0
 
 #define SECOND_US    1000000
-#define SEG_CNT      8
 #define DIG_CNT      4
-#define SEG_DELAY    ((int) (SECOND_US / (SEG_CNT * DIG_CNT) / REFRESH_RATE))
 #define DIG_DELAY    ((uint32_t) (SECOND_US / DIG_CNT) / REFRESH_RATE)
 
 
