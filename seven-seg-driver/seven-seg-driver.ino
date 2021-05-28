@@ -125,7 +125,7 @@ void setup()
 
 	// clear outputs
 	PORTD  = 0x00;
-	PORTB &= 0xF0;
+	PORTB |= 0x0F;
 
 	memset(ssd_buff, 0, sizeof(ssd_buff));
 
