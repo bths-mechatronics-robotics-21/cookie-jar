@@ -119,9 +119,11 @@ volatile uint8_t ssd_buff[4];
 
 void setup()
 {
+	// set data direction to output
 	DDRD  = 0xFF;
 	DDRB |= 0x0F;
 
+	// clear outputs
 	PORTD  = 0x00;
 	PORTB &= 0xF0;
 
