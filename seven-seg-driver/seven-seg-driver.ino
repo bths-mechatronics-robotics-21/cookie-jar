@@ -42,6 +42,10 @@
 #define DIG_CNT      4
 #define DIG_DELAY    ((uint32_t) (SECOND_US / DIG_CNT) / REFRESH_RATE)
 
+#define ASCII_DIGIT_OFFSET     0x30
+#define ASCII_CAPITAL_OFFSET   0x37
+#define ASCII_LOWERCASE_OFFSET 0x3D
+
 
 #include <Wire.h>
 
@@ -151,4 +155,16 @@ void loop()
 
 		pre_time = cur_time;
 	}
+}
+
+
+uint8_t ascii_lookup(uint8_t in)
+{
+	if      (in >= '0' && in <= '9') in -= ASCII_DIGIT_OFFSET;
+	else if (in >= 'A' && in <= 'Z') in -= ASCII_CAPITAL_OFFSET;
+	else if (in >= 'a' && in <= 'z') in -= ASCII_LOWERCASE_OFFSET;
+	else                             in  = sizeof(SEG_LOOKUP) - 1;
+	// last element corresponds to space/unknown
+
+	return SEG_LOOKUP[in];
 }
