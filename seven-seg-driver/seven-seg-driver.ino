@@ -127,12 +127,12 @@ volatile bool    new_buff;
 void setup()
 {
 	// set data direction to output
-	DDRD  = 0xFF;
 	DDRB |= 0x0F;
+	DDRD  = 0xFF;
 
 	// clear outputs
-	PORTD  = 0x00;
 	PORTB |= 0x0F;
+	PORTD  = 0x00;
 
 	memset(ssd_buff, 0, sizeof(ssd_buff));
 
