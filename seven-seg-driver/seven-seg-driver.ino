@@ -135,6 +135,7 @@ void setup()
 	PORTD  = 0x00;
 
 	memset(ssd_buff, 0, sizeof(ssd_buff));
+	memset(rec_buff, 0, sizeof(rec_buff));
 
 	Wire.begin('d');  // 0x64
 	Wire.onReceive(receive_handler);
