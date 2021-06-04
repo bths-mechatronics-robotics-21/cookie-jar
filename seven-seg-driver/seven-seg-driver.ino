@@ -118,9 +118,9 @@ const uint8_t SEG_LOOKUP[] = {
 	0b00000000   // none
 };
 
-volatile uint8_t ssd_buff[4];
+volatile uint8_t ssd_buff[DIG_CNT];
 
-volatile uint8_t rec_buff[4];
+volatile uint8_t rec_buff[DIG_CNT];
 volatile bool    new_buff;
 
 
@@ -162,7 +162,7 @@ void loop()
 	if (new_buff) {
 		// prevent partial refreshes
 		if (!dig) {
-			for (uint8_t i = 0; i < sizeof(ssd_buff); i++) {
+			for (uint8_t i = 0; i < DIG_CNT; i++) {
 				ssd_buff[i] = ascii_lookup(rec_buff[i]);
 			}
 			new_buff = false;
@@ -174,7 +174,7 @@ void loop()
 void receive_handler(int siz)
 {
 	int cnt = 0;
-	int tmp[4];
+	int tmp[DIG_CNT];
 	memset(tmp, 0, sizeof(tmp));
 
 	while (cnt < siz) {
@@ -183,7 +183,7 @@ void receive_handler(int siz)
 
 		// don't trample over memory once our buffer's full
 		++cnt;
-		if (cnt >= sizeof(rec_buff)) break;
+		if (cnt >= DIG_CNT) break;
 	}
 
 	// flush any bytes that didn't fit into the buffer
