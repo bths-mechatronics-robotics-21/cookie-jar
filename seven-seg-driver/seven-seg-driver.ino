@@ -149,12 +149,9 @@ void loop()
 	cur_time = micros();
 
 	if (cur_time - pre_time >= DIG_DELAY) {
-		// enable the appropriate segment
-		PORTD  = ssd_buff[dig];
-
-		// enable the appropriate digit
-		PORTB |= 0x0F;
-		PORTB &= ~_BV(dig);
+		PORTB |= 0x0F;           // disable digits
+		PORTD  = ssd_buff[dig];  // set appropriate segments
+		PORTB &= ~_BV(dig);      // enable appropriate digit
 
 		++dig;
 		dig %= DIG_CNT;
