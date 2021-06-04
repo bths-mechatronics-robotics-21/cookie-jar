@@ -161,6 +161,16 @@ void loop()
 
 		pre_time = cur_time;
 	}
+
+	if (new_buff) {
+		// prevent partial refreshes
+		if (!dig) {
+			for (uint8_t i = 0; i < sizeof(ssd_buff); i++) {
+				ssd_buff[i] = ascii_lookup(rec_buff[i]);
+			}
+			new_buff = false;
+		}
+	}
 }
 
 
