@@ -46,6 +46,8 @@
 #define ASCII_CAPITAL_OFFSET   0x37
 #define ASCII_LOWERCASE_OFFSET 0x3D
 
+#define WIRE_ERROR_HANDLE(X) (((X) != -1) ? (X) : '\0')
+
 
 #include <Wire.h>
 
@@ -118,6 +120,9 @@ const uint8_t SEG_LOOKUP[] = {
 
 volatile uint8_t ssd_buff[4];
 
+volatile uint8_t rec_buff[4];
+volatile bool    new_buff;
+
 
 void setup()
 {
@@ -132,6 +137,7 @@ void setup()
 	memset(ssd_buff, 0, sizeof(ssd_buff));
 
 	Wire.begin('d');  // 0x64
+	Wire.onReceive(receive_handler);
 }
 
 void loop()
@@ -157,6 +163,31 @@ void loop()
 	}
 }
 
+
+void receive_handler(int siz)
+{
+	int cnt = 0;
+	int tmp[4];
+	memset(tmp, 0, sizeof(tmp));
+
+	while (cnt < siz) {
+		tmp[cnt]      = Wire.read();
+		rec_buff[cnt] = WIRE_ERROR_HANDLE(tmp[cnt]);
+
+		// don't trample over memory once our buffer's full
+		++cnt;
+		if (cnt >= sizeof(rec_buff)) break;
+	}
+
+	// flush any bytes that didn't fit into the buffer
+	siz -= cnt;
+	while (siz) {
+		Wire.read();
+		--siz;
+	}
+
+	new_buff = true;
+}
 
 uint8_t ascii_lookup(uint8_t in)
 {
