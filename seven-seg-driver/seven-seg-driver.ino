@@ -134,8 +134,10 @@ void setup()
 	PORTB |= 0x0F;
 	PORTD  = 0x00;
 
+	// ensure clean memory
 	memset(ssd_buff, 0, sizeof(ssd_buff));
 	memset(rec_buff, 0, sizeof(rec_buff));
+	new_buff = false;
 
 	Wire.begin('d');  // 0x64
 	Wire.onReceive(receive_handler);
