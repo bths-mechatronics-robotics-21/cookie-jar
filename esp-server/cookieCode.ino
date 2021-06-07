@@ -1,3 +1,4 @@
+
 /*
 COOKIE FEATURES:
 Matthew Bilik
@@ -17,15 +18,14 @@ START INITIALIZATION
 #include "global.h"
 
 //IMPORT PACKAGES:
-#include <esp8266wifi.h>
-#include <wificlient.h>
-#include <esp8266wifimulti.h> 
-#include <esp8266mdns.h>
-#include <esp8266webserver.h>
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WiFiMulti.h> 
+#include <ESP8266mDNS.h>
+#include <ESP8266WebServer.h>
+
 
 // IMPORT / INITIALIZE OTHER
-#include <string>
-#include <ctime>
 using namespace std;
 
 // INITIALIZE TIME 
@@ -37,7 +37,7 @@ int cookieServo = 2;
 Servo Servo1;
 
 // Get time when first run:
-void getCurrentTime(){
+int getCurrentTime(){
   time_t now;
   struct tm * timeinfo;
   time(&now);
@@ -134,10 +134,10 @@ void handleCookie(){
   server.send(200, "text/html", webCodeApproved);
 
   // OPEN AND CLOSE LID
-  cookieServo.write(90);
+  Servo1.write(90);
   // 3 SECOND DELAY
   delay(3000);
-  cookieServo.write(0);
+  Servo1.write(0);
   //END
  } else {
    // No dispense.

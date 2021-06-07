@@ -1,9 +1,11 @@
 #ifndef WEB_CODE
 #define WEB_CODE
 
+#include <Arduino.h>
+
 extern int timeLeft;
 
-extern const std::string webCodeApproved;
-extern const std::string webCodeDenied;
+extern String webCodeApproved;
+extern String webCodeDenied;
 
 #endif
